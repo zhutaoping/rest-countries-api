@@ -3,8 +3,8 @@ import SearchBar from "./SearchBar";
 
 type Props = {
 	query: string;
-	onQuery: (e: any) => void;
-	onSubmit: (e: any) => void;
+	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onSubmit: (e: React.FormEvent) => void;
 };
 
 const SearchSection = ({ query, onQuery, onSubmit }: Props) => {

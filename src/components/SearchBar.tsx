@@ -1,23 +1,21 @@
-import { useState, createContext } from "react";
+import { createContext } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const QueryContext = createContext<string>("");
 
 type Props = {
 	query: string;
-	onQuery: (e: any) => void;
-	onSubmit: (e: any) => void;
+	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onSubmit: (e: React.FormEvent) => void;
 };
 
 const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
-	const { darkMode, handleTheme } = useTheme();
-
 	return (
 		<form
 			onSubmit={onSubmit}
 			action="submit"
 			autoComplete="off"
-			className="flex items-center py-4 mx-6 mb-3"
+			className="flex items-center py-4 mx-6 mb-6"
 		>
 			<label htmlFor="simple-search" className="sr-only">
 				Search

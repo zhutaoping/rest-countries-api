@@ -1,25 +1,11 @@
-type Props = {
-	name: string;
-	region: string;
-	population: number;
-	capital: string;
-	flag: string;
-	query: string;
-};
+import { State } from "../App";
 
-const CountryItem = ({
-	name,
-	region,
-	population,
-	capital,
-	flag,
-	query,
-}: Props) => {
+const CountryItem = ({ name, region, population, capital, flag }: State) => {
 	return (
-		<div className="flex justify-center mt-3">
+		<div className="">
 			<div className="max-w-sm rounded overflow-hidden shadow-lg ">
 				<img className="object-contain" src={flag} alt="country flag" />
-				<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700">
+				<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700 w-[320px]">
 					<h2 className="font-bold text-xl mb-3">{name}</h2>
 					<p className="dark:text-pureWhite mb-1">
 						<span className="font-semibold">Population</span>:{" "}

@@ -14,8 +14,7 @@ const DropDownMenu = () => {
 			<button
 				onClick={dropdownMenu}
 				id="dropdownDefault"
-				data-dropdown-toggle="dropdown" // dropdown menu element id
-				className="ml-6 mb-6 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm px-4 py-2.5 text-center inline-flex items-center shadow-sm "
+				className="ml-6 mb-7 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm px-4 py-2.5 text-center inline-flex items-center shadow-sm "
 				type="button"
 			>
 				Dropdown button{" "}
