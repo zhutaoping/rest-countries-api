@@ -1,6 +1,24 @@
-const SearchBar = () => {
+import { useState, createContext } from "react";
+import { useTheme } from "../context/ThemeContext";
+
+const QueryContext = createContext<string>("");
+
+type Props = {
+	query: string;
+	onQuery: (e: any) => void;
+	onSubmit: (e: any) => void;
+};
+
+const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
+	const { darkMode, handleTheme } = useTheme();
+
 	return (
-		<form className="flex items-center py-4 w-[90vw] mx-auto">
+		<form
+			onSubmit={onSubmit}
+			action="submit"
+			autoComplete="off"
+			className="flex items-center py-4 mx-6 mb-3"
+		>
 			<label htmlFor="simple-search" className="sr-only">
 				Search
 			</label>
@@ -14,16 +32,18 @@ const SearchBar = () => {
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<path
-							fill-rule="evenodd"
+							fillRule="evenodd"
 							d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-							clip-rule="evenodd"
+							clipRule="evenodd"
 						></path>
 					</svg>
 				</div>
 				<input
+					value={query}
+					onChange={onQuery}
 					type="text"
 					id="simple-search"
-					className="bg-white-50 border-0 text-gray-900 text-sm rounded-md focus:ring-gray-100 focus:border-gray-100 shadow-sm block w-full pl-10 p-2.5  dark:bg-elementsDark dark:placeholder-white dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+					className="border-0 dark:bg-elementsDark text-gray-900 text-sm rounded-md shadow-sm w-full pl-10 p-2.5 placeholder-gray-900  dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"
 					placeholder="Search for a country..."
 					required
 				/>
