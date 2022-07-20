@@ -1,8 +1,3 @@
-import { createContext } from "react";
-import { useTheme } from "../context/ThemeContext";
-
-const QueryContext = createContext<string>("");
-
 type Props = {
 	query: string;
 	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;

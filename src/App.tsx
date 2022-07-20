@@ -22,7 +22,6 @@ function App() {
 
 	const handleGetData = async (query: string) => {
 		let url;
-		console.log(query);
 
 		if (query.length === 0) url = "https://restcountries.com/v3.1/region/asia";
 		else url = `https://restcountries.com/v3.1/name/${query}`;
@@ -30,22 +29,25 @@ function App() {
 		const res = await fetch(url);
 		const json = await res.json();
 
-		console.log("test:", json);
-		for (let i = 0; i < json.length; i++) {
+		for (let js of json) {
 			setData((prevData) => [
 				...prevData,
 				{
-					name: json[i].name.common,
-					region: json[i].region,
-					population: json[i].population,
-					capital: json[i].capital,
-					flag: json[i].flags.png,
+					name: js.name.common,
+					region: js.region,
+					population: js.population,
+					capital: js.capital,
+					flag: js.flags.png,
 				},
 			]);
 		}
 	};
 
-	const handleSubmit = (e: any) => {
+	const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setQuery(e.target.value);
+	};
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		handleGetData(query);
 		setQuery("");
@@ -57,10 +59,8 @@ function App() {
 			<Header />
 			<SearchSection
 				query={query}
-				onQuery={(e: React.ChangeEvent<HTMLInputElement>): void =>
-					setQuery(e.target.value)
-				}
-				onSubmit={(e: React.FormEvent) => handleSubmit(e)}
+				onQuery={handleQuery}
+				onSubmit={handleSubmit}
 			/>
 			<CountryList data={data} />
 		</ThemeProvider>
