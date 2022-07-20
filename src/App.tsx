@@ -23,7 +23,8 @@ function App() {
 	const handleGetData = async (query: string) => {
 		let url;
 
-		if (query.length === 0) url = "https://restcountries.com/v3.1/region/asia";
+		if (query.length === 0)
+			url = "https://restcountries.com/v3.1/name/republic";
 		else url = `https://restcountries.com/v3.1/name/${query}`;
 
 		const res = await fetch(url);
@@ -57,12 +58,14 @@ function App() {
 	return (
 		<ThemeProvider>
 			<Header />
-			<SearchSection
-				query={query}
-				onQuery={handleQuery}
-				onSubmit={handleSubmit}
-			/>
-			<CountryList data={data} />
+			<div className="flex flex-col justify-between">
+				<SearchSection
+					query={query}
+					onQuery={handleQuery}
+					onSubmit={handleSubmit}
+				/>
+				<CountryList data={data} />
+			</div>
 		</ThemeProvider>
 	);
 }

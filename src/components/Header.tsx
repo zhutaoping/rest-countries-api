@@ -5,10 +5,12 @@ const Header = () => {
 	const { darkMode, handleTheme } = useTheme();
 
 	return (
-		<header className="header px-3 py-8 flex justify-between items-center dark:bg-elementsDark text-textLight dark:text-white drop-shadow">
-			<h1 className="m-0 text-base font-bold">Where in the World?</h1>
+		<header className="header  py-8 flex justify-evenly md:justify-between md:px-20 lg:px-40 items-center dark:bg-elementsDark text-textLight dark:text-white drop-shadow">
+			<h1 className="m-0 text-base md:text-2xl font-bold">
+				Where in the World?
+			</h1>
 
-			<span className="flex items-center text-sm">
+			<span className="flex items-center text-sm md:text-xl">
 				{darkMode ? (
 					<FaSun onClick={handleTheme} className="mr-2 text-lg" />
 				) : (

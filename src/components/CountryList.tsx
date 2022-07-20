@@ -7,7 +7,7 @@ type Props = {
 
 const CountryList = ({ data }: Props) => {
 	return (
-		<main className="flex gap-10 md:gap-20 flex-wrap justify-center ">
+		<main className="flex flex-wrap justify-center gap-10 md:gap-20">
 			{data.map((da, i) => (
 				<CountryItem
 					key={i}

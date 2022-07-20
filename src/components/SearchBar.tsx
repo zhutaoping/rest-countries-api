@@ -10,7 +10,7 @@ const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
 			onSubmit={onSubmit}
 			action="submit"
 			autoComplete="off"
-			className="flex items-center py-4 mx-6 mb-6"
+			className="flex items-center py-4 mb-2 "
 		>
 			<label htmlFor="simple-search" className="sr-only">
 				Search
@@ -36,7 +36,7 @@ const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
 					onChange={onQuery}
 					type="text"
 					id="simple-search"
-					className="border-0 dark:bg-elementsDark text-gray-900 text-sm rounded-md shadow-sm w-full pl-10 p-2.5 placeholder-gray-900  dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"
+					className="border-0 dark:bg-elementsDark md:text-xl text-gray-900 text-sm rounded-md shadow-sm w-full max-w-[400px] pl-10 p-2.5 placeholder-gray-900 hover:bg-gray-100 focus:ring-gray-200 dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"
 					placeholder="Search for a country..."
 					required
 				/>
