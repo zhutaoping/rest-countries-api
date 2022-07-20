@@ -14,7 +14,7 @@ const DropDownMenu = () => {
 			<button
 				onClick={dropdownMenu}
 				id="dropdownDefault"
-				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm md:text-xl px-4 py-2.5 text-center inline-flex items-center shadow-sm hover:bg-gray-100"
+				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm hover:bg-gray-100"
 				type="button"
 			>
 				Dropdown button{" "}
@@ -38,10 +38,10 @@ const DropDownMenu = () => {
 				data-dropdown
 				id="dropdown"
 				ref={dropdownRef}
-				className="hidden absolute top-[220px] md:top-[197px] z-10 w-[165.86px] md:w-[213px] bg-white rounded text-gray-900 dark:bg-gray-700"
+				className="hidden absolute top-[220px] md:top-[197px] z-10 w-[165.86px] md:w-[197px] bg-white rounded text-gray-900 dark:bg-gray-700"
 			>
 				<ul
-					className="py-1 text-sm md:text-xl text-gray-700 dark:text-gray-200"
+					className="py-1 text-sm md:text-lg text-gray-700 dark:text-gray-200"
 					aria-labelledby="dropdownDefault"
 				>
 					<li>
