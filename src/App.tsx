@@ -1,8 +1,8 @@
 import Header from "./components/Header";
 import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
-import { ThemeProvider } from "./context/ThemeContext";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export interface State {
 	name: string;
@@ -10,6 +10,12 @@ export interface State {
 	population: number;
 	capital: string;
 	flag: string;
+	nativeName: string;
+	subregion: string;
+	topLevelDomain: string;
+	currencies: string;
+	langs: string;
+	borders: string[];
 }
 
 function App() {
@@ -23,14 +29,31 @@ function App() {
 	const handleGetData = async (query: string) => {
 		let url;
 
-		if (query.length === 0)
-			url = "https://restcountries.com/v3.1/name/republic";
+		if (query.length === 0) url = "https://restcountries.com/v3.1/all";
 		else url = `https://restcountries.com/v3.1/name/${query}`;
 
 		const res = await fetch(url);
 		const json = await res.json();
 
+		console.log(json);
+
 		for (let js of json) {
+			// navigate(`/countrypage/${js.name}`, js);
+
+			interface LooseObject {
+				[key: string]: string;
+			}
+
+			const nativeName = Object.values<LooseObject>(js.name.nativeName)[0]
+				.common;
+
+			const langs = Object.values<string>(js.languages).join();
+
+			let currencies: string;
+
+			if (js.currencies) currencies = Object.keys(js.currencies)[0];
+			else return "N/A";
+
 			setData((prevData) => [
 				...prevData,
 				{
@@ -38,7 +61,13 @@ function App() {
 					region: js.region,
 					population: js.population,
 					capital: js.capital,
-					flag: js.flags.png,
+					flag: js.flags.svg,
+					nativeName: nativeName,
+					subregion: js.subregion,
+					topLevelDomain: js.tld[0],
+					currencies: currencies,
+					langs: langs,
+					borders: js.borders,
 				},
 			]);
 		}
@@ -50,23 +79,22 @@ function App() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+
 		handleGetData(query);
 		setQuery("");
 		setData([]);
 	};
 
 	return (
-		<ThemeProvider>
+		<>
 			<Header />
-			<div className="flex flex-col justify-between">
-				<SearchSection
-					query={query}
-					onQuery={handleQuery}
-					onSubmit={handleSubmit}
-				/>
-				<CountryList data={data} />
-			</div>
-		</ThemeProvider>
+			<SearchSection
+				query={query}
+				onQuery={handleQuery}
+				onSubmit={handleSubmit}
+			/>
+			<CountryList data={data} />
+		</>
 	);
 }
 

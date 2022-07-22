@@ -6,6 +6,8 @@ type Props = {
 };
 
 const CountryList = ({ data }: Props) => {
+	// const handleClick = (data: State) => {};
+
 	return (
 		<main className="flex flex-wrap justify-center gap-10 md:gap-20">
 			{data.map((da, i) => (
@@ -16,6 +18,14 @@ const CountryList = ({ data }: Props) => {
 					population={da.population}
 					capital={da.capital}
 					flag={da.flag}
+					nativeName={da.nativeName}
+					subregion={da.subregion}
+					topLevelDomain={da.topLevelDomain}
+					currencies={da.currencies}
+					langs={da.langs}
+					borders={da.borders}
+					// onClick={() => handleClick(da)}
+					data={da}
 				/>
 			))}
 		</main>
