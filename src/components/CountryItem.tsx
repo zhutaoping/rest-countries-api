@@ -15,7 +15,7 @@ const CountryItem = ({
 		<div>
 			<Link to={`/countrypage/${name}`} state={data}>
 				<div className="max-w-sm rounded overflow-hidden shadow-lg ">
-					<img className="" src={flag} alt="country flag" />
+					<img src={flag} alt="country flag" />
 					<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700">
 						<h2 className="font-bold text-xl mb-3">{name}</h2>
 						<p className="dark:text-pureWhite mb-1">

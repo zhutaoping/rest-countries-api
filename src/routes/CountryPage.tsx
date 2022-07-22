@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
-import Header from "../components/Header";
 import { State } from "../App";
 import { countryListAlpha3 } from "../data/listAlpha3";
 
@@ -18,13 +17,15 @@ const CountryPage = () => {
 			const key = el.toUpperCase();
 			return countryListAlpha3[key as keyof typeof countryListAlpha3];
 		});
-		console.log(newArr);
 	}
+
+	const handleClick = () => {
+		navigate(-1);
+	};
 
 	return (
 		<div className="text-white">
-			<Header />
-			<button onClick={() => navigate(-1)} className="nav-btn ml-[7vw]">
+			<button onClick={handleClick} className="nav-btn ml-[7vw]">
 				<BsArrowLeft className="block text-xl" />
 				Back
 			</button>

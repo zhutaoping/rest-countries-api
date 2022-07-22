@@ -1,24 +1,14 @@
 import ReactDOM from "react-dom/client";
 import "./index.scss";
-import App from "./App";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CountryPage from "./routes/CountryPage";
 import { ThemeProvider } from "./context/ThemeContext";
-import NoMatch from "./routes/NoMatch";
-import CountryList from "./components/CountryList";
+import RouteSwitch from "./RouteSwitch";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 root.render(
 	<ThemeProvider>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<App />}></Route>
-				<Route path="/countrypage/:name" element={<CountryPage />} />
-				<Route path="*" element={<NoMatch />} />
-			</Routes>
-		</BrowserRouter>
+		<RouteSwitch />
 	</ThemeProvider>
 );
 

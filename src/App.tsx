@@ -2,7 +2,7 @@ import Header from "./components/Header";
 import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 export interface State {
 	name: string;
@@ -22,6 +22,8 @@ function App() {
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState<State[]>([]);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		handleGetData("");
 	}, []);
@@ -38,8 +40,6 @@ function App() {
 		console.log(json);
 
 		for (let js of json) {
-			// navigate(`/countrypage/${js.name}`, js);
-
 			interface LooseObject {
 				[key: string]: string;
 			}
@@ -50,9 +50,12 @@ function App() {
 			const langs = Object.values<string>(js.languages).join();
 
 			let currencies: string;
-
 			if (js.currencies) currencies = Object.keys(js.currencies)[0];
 			else return "N/A";
+
+			let tld: string;
+			if (js.tld) tld = js.tld[0];
+			else tld = "N/A";
 
 			setData((prevData) => [
 				...prevData,
@@ -64,7 +67,7 @@ function App() {
 					flag: js.flags.svg,
 					nativeName: nativeName,
 					subregion: js.subregion,
-					topLevelDomain: js.tld[0],
+					topLevelDomain: tld,
 					currencies: currencies,
 					langs: langs,
 					borders: js.borders,
@@ -80,6 +83,8 @@ function App() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
+		navigate("countrylist");
+
 		handleGetData(query);
 		setQuery("");
 		setData([]);
@@ -87,13 +92,14 @@ function App() {
 
 	return (
 		<>
-			<Header />
 			<SearchSection
 				query={query}
 				onQuery={handleQuery}
 				onSubmit={handleSubmit}
 			/>
-			<CountryList data={data} />
+			<Routes>
+				<Route path="countrylist" element={<CountryList data={data} />} />
+			</Routes>
 		</>
 	);
 }

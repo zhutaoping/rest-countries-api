@@ -11,7 +11,7 @@ const SearchSection = ({ query, onQuery, onSubmit }: Props) => {
 	return (
 		<section
 			role="search"
-			className="mx-10 my-2 bg-bgLight dark:bg-bgDark md:w-4/5 md:flex md:items-center  md:my-7 md:justify-between md:mx-auto 
+			className="mx-7 my-2 bg-bgLight dark:bg-bgDark md:flex md:items-center md:mx-28 md:my-7 md:justify-between 
 			"
 		>
 			<SearchBar query={query} onQuery={onQuery} onSubmit={onSubmit} />
