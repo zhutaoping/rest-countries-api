@@ -1,8 +1,8 @@
-import Header from "./components/Header";
 import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import CountryPage from "./routes/CountryPage";
 
 export interface State {
 	name: string;
@@ -21,6 +21,7 @@ export interface State {
 function App() {
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState<State[]>([]);
+	const [data2, setData2] = useState<State[]>([]);
 
 	const navigate = useNavigate();
 
@@ -30,10 +31,15 @@ function App() {
 
 	const handleGetData = async (query: string) => {
 		let url;
+		let isAll = true;
 
-		if (query.length === 0) url = "https://restcountries.com/v3.1/all";
-		else url = `https://restcountries.com/v3.1/name/${query}`;
-
+		if (query.length === 0) {
+			url = "https://restcountries.com/v3.1/all";
+			isAll = true;
+		} else {
+			url = `https://restcountries.com/v3.1/name/${query}`;
+			isAll = false;
+		}
 		const res = await fetch(url);
 		const json = await res.json();
 
@@ -57,22 +63,41 @@ function App() {
 			if (js.tld) tld = js.tld[0];
 			else tld = "N/A";
 
-			setData((prevData) => [
-				...prevData,
-				{
-					name: js.name.common,
-					region: js.region,
-					population: js.population,
-					capital: js.capital,
-					flag: js.flags.svg,
-					nativeName: nativeName,
-					subregion: js.subregion,
-					topLevelDomain: tld,
-					currencies: currencies,
-					langs: langs,
-					borders: js.borders,
-				},
-			]);
+			if (isAll) {
+				setData((prevData) => [
+					...prevData,
+					{
+						name: js.name.common,
+						region: js.region,
+						population: js.population,
+						capital: js.capital,
+						flag: js.flags.svg,
+						nativeName: nativeName,
+						subregion: js.subregion,
+						topLevelDomain: tld,
+						currencies: currencies,
+						langs: langs,
+						borders: js.borders,
+					},
+				]);
+			} else {
+				setData2((prevData) => [
+					...prevData,
+					{
+						name: js.name.common,
+						region: js.region,
+						population: js.population,
+						capital: js.capital,
+						flag: js.flags.svg,
+						nativeName: nativeName,
+						subregion: js.subregion,
+						topLevelDomain: tld,
+						currencies: currencies,
+						langs: langs,
+						borders: js.borders,
+					},
+				]);
+			}
 		}
 	};
 
@@ -92,13 +117,34 @@ function App() {
 
 	return (
 		<>
-			<SearchSection
-				query={query}
-				onQuery={handleQuery}
-				onSubmit={handleSubmit}
-			/>
 			<Routes>
-				<Route path="countrylist" element={<CountryList data={data} />} />
+				<Route
+					path="/"
+					element={
+						<>
+							<SearchSection
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={data} />
+						</>
+					}
+				/>
+				<Route
+					path="/countrylist"
+					element={
+						<>
+							<SearchSection
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={data2} />
+						</>
+					}
+				/>
+				<Route path="/countrypage/:name" element={<CountryPage />} />
 			</Routes>
 		</>
 	);

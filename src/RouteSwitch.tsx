@@ -11,7 +11,6 @@ const RouteSwitch = () => {
 
 			<Routes>
 				<Route path="/*" element={<App />}></Route>
-				<Route path="/countrypage/:name" element={<CountryPage />} />
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</BrowserRouter>
