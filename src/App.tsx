@@ -3,6 +3,7 @@ import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import CountryPage from "./routes/CountryPage";
 
 export interface State {
 	name: string;
@@ -92,13 +93,34 @@ function App() {
 
 	return (
 		<>
-			<SearchSection
-				query={query}
-				onQuery={handleQuery}
-				onSubmit={handleSubmit}
-			/>
 			<Routes>
-				<Route path="countrylist" element={<CountryList data={data} />} />
+				<Route
+					path="/"
+					element={
+						<>
+							<SearchSection
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={data} />
+						</>
+					}
+				/>
+				<Route
+					path="/countrylist"
+					element={
+						<>
+							<SearchSection
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={data} />
+						</>
+					}
+				/>
+				<Route path="/countrypage/:name" element={<CountryPage />} />
 			</Routes>
 		</>
 	);
