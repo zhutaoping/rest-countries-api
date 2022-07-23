@@ -27,8 +27,6 @@ const DetailsPage = ({ onClick }: Props) => {
 		navigate(-1);
 	};
 
-	console.log(state);
-
 	return (
 		<div className="text-white">
 			<button onClick={handleBackBtn} className="nav-btn ml-[7vw]">

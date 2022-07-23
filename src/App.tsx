@@ -21,6 +21,8 @@ export interface State {
 function App() {
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState<State[]>([]);
+	const [list, setList] = useState<State[]>([]);
+	const [filtered, setFiltered] = useState<State[]>([]);
 
 	const navigate = useNavigate();
 
@@ -29,6 +31,9 @@ function App() {
 	}, []);
 
 	let isAlpha3 = false;
+	let isList = false;
+	let isFilter = false;
+
 	const handleGetData = async (query: string) => {
 		let url;
 
@@ -40,9 +45,10 @@ function App() {
 		} else {
 			url = `https://restcountries.com/v3.1/name/${query}`;
 		}
+
 		const res = await fetch(url);
 		const json = await res.json();
-		console.log(json);
+		// console.log(json);
 
 		for (let js of json) {
 			interface LooseObject {
@@ -70,22 +76,42 @@ function App() {
 			let tld: string;
 			tld = js.tld ? js.tld[0] : "n/a";
 
-			setData((prevData) => [
-				...prevData,
-				{
-					name: js.name.common,
-					region: js.region,
-					population: js.population,
-					capital: js.capital || "n/a",
-					flag: js.flags.svg,
-					nativeName: nativeName,
-					subregion: js.subregion || "n/a",
-					topLevelDomain: tld,
-					currencies: currencies,
-					langs: langs,
-					borders: js.borders,
-				},
-			]);
+			if (isList) {
+				setList((prevData) => [
+					...prevData,
+					{
+						name: js.name.common,
+						region: js.region,
+						population: js.population,
+						capital: js.capital || "n/a",
+						flag: js.flags.svg,
+						nativeName: nativeName,
+						subregion: js.subregion || "n/a",
+						topLevelDomain: tld,
+						currencies: currencies,
+						langs: langs,
+						borders: js.borders,
+					},
+				]);
+				isList = false;
+			} else {
+				setData((prevData) => [
+					...prevData,
+					{
+						name: js.name.common,
+						region: js.region,
+						population: js.population,
+						capital: js.capital || "n/a",
+						flag: js.flags.svg,
+						nativeName: nativeName,
+						subregion: js.subregion || "n/a",
+						topLevelDomain: tld,
+						currencies: currencies,
+						langs: langs,
+						borders: js.borders,
+					},
+				]);
+			}
 		}
 	};
 
@@ -105,19 +131,22 @@ function App() {
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		isAlpha3 = true;
+		isList = true;
 		const query = e.currentTarget.value;
-		console.log(query);
 		handleGetData(query);
-		navigate("countrylist", { state: data[0] });
-		setData([]);
+		navigate("countrylist", { state: list });
+		console.log(list);
+		setList([]);
 	};
 
 	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const filter = e.currentTarget.textContent;
 		console.log(data);
 		const filteredData = data.filter((el) => el.region === filter);
-		navigate("/byregion");
-		setData(filteredData);
+		setFiltered(filteredData);
+		console.log(filteredData);
+		navigate("region", { state: filtered });
+		// setFiltered([]);
 	};
 
 	return (
@@ -147,12 +176,12 @@ function App() {
 								onQuery={handleQuery}
 								onSubmit={handleSubmit}
 							/>
-							<CountryList data={data} />
+							<CountryList data={list} />
 						</>
 					}
 				/>
 				<Route
-					path="/byregion"
+					path="/region"
 					element={
 						<>
 							<SearchSection
@@ -161,12 +190,12 @@ function App() {
 								onQuery={handleQuery}
 								onSubmit={handleSubmit}
 							/>
-							<CountryList data={data} />
+							<CountryList data={filtered} />
 						</>
 					}
 				/>
 				<Route
-					path="/countrypage/:name"
+					path="/detailspage/:name"
 					element={<DetailsPage onClick={handleClick} />}
 				/>
 			</Routes>

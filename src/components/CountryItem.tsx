@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { State } from "../App";
 
-type Props = State & { data: object };
+type Props = State & { data: object } & { index: number };
 
 const CountryItem = ({
 	name,
@@ -10,10 +10,11 @@ const CountryItem = ({
 	capital,
 	flag,
 	data,
+	index,
 }: Props) => {
 	return (
 		<div>
-			<Link to={`/countrypage/${name}`} state={data} title="Details Page">
+			<Link to={`/detailspage/${name}`} state={data} title="Details Page">
 				<div className="max-w-sm rounded overflow-hidden shadow-lg ">
 					<img src={flag} alt="country flag" />
 					<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700">
@@ -28,6 +29,7 @@ const CountryItem = ({
 						<p className="dark:text-pureWhite mb-1">
 							<span className="font-semibold">Capital</span>: {capital}
 						</p>
+						<p>{index}</p>
 					</div>
 				</div>
 			</Link>

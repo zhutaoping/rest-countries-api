@@ -11,6 +11,7 @@ const CountryList = ({ data }: Props) => {
 			{data.map((da, i) => (
 				<CountryItem
 					key={i}
+					index={i}
 					name={da.name}
 					region={da.region}
 					population={da.population}
