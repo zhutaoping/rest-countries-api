@@ -7,7 +7,7 @@ type Props = {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const CountryPage = ({ onClick }: Props) => {
+const DetailsPage = ({ onClick }: Props) => {
 	const location = useLocation();
 	const state = location.state as State;
 
@@ -26,6 +26,8 @@ const CountryPage = ({ onClick }: Props) => {
 	const handleBackBtn = () => {
 		navigate(-1);
 	};
+
+	console.log(state);
 
 	return (
 		<div className="text-white">
@@ -102,4 +104,4 @@ const CountryPage = ({ onClick }: Props) => {
 	);
 };
 
-export default CountryPage;
+export default DetailsPage;

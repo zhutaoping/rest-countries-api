@@ -14,17 +14,24 @@ const Header = () => {
 
 	return (
 		<header className="header py-8 flex justify-around md:justify-between md:px-20 lg:px-40 items-center dark:bg-elementsDark text-textLight dark:text-white drop-shadow">
-			<h1 onClick={handleClick} className="m-0 text-base md:text-2xl font-bold">
+			<h1
+				onClick={handleClick}
+				className="m-0 text-base md:text-2xl font-bold cursor-pointer"
+				title="Home Page"
+			>
 				Where in the World?
 			</h1>
-			<span
-				onClick={handleTheme}
-				className="flex items-center text-sm md:text-xl"
-			>
+			<span className="flex items-center text-sm md:text-xl">
 				{darkMode ? (
-					<FaSun className="mr-2 md:text-2xl cursor-pointer" />
+					<FaSun
+						onClick={handleTheme}
+						className="mr-2 md:text-2xl cursor-pointer"
+					/>
 				) : (
-					<FaRegMoon className="mr-2 md:text-2xl cursor-pointer" />
+					<FaRegMoon
+						onClick={handleTheme}
+						className="mr-2 md:text-2xl cursor-pointer"
+					/>
 				)}
 				{darkMode ? "Light Mode" : "Dark Mode"}
 			</span>

@@ -13,7 +13,7 @@ const CountryItem = ({
 }: Props) => {
 	return (
 		<div>
-			<Link to={`/countrypage/${name}`} state={data}>
+			<Link to={`/countrypage/${name}`} state={data} title="Details Page">
 				<div className="max-w-sm rounded overflow-hidden shadow-lg ">
 					<img src={flag} alt="country flag" />
 					<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700">

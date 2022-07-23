@@ -1,10 +1,17 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-const DropDownMenu = () => {
+type Props = {
+	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+const DropDownMenu = ({ onFilter }: Props) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
+	const navigate = useNavigate();
+
 	const dropdownMenu = () => {
-		if (null !== dropdownRef.current) {
+		if (dropdownRef.current !== null) {
 			dropdownRef.current.classList.toggle("hidden");
 		}
 	};
@@ -17,7 +24,7 @@ const DropDownMenu = () => {
 				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm hover:bg-gray-100"
 				type="button"
 			>
-				Dropdown button{" "}
+				Filter by Region
 				<svg
 					className="ml-2 w-4 h-4"
 					aria-hidden="true"
@@ -38,6 +45,7 @@ const DropDownMenu = () => {
 				data-dropdown
 				id="dropdown"
 				ref={dropdownRef}
+				onClick={dropdownMenu}
 				className="hidden absolute top-[220px] md:top-[197px] z-10 w-[165.86px] md:w-[197px] bg-white rounded text-gray-900 dark:bg-gray-700"
 			>
 				<ul
@@ -45,19 +53,29 @@ const DropDownMenu = () => {
 					aria-labelledby="dropdownDefault"
 				>
 					<li>
-						<button className="filter-btn">Africa</button>
+						<button onClick={onFilter} className="filter-btn">
+							Africa
+						</button>
 					</li>
 					<li>
-						<button className="filter-btn">America</button>
+						<button onClick={onFilter} className="filter-btn">
+							America
+						</button>
 					</li>
 					<li>
-						<button className="filter-btn">Asia</button>
+						<button onClick={onFilter} className="filter-btn">
+							Asia
+						</button>
 					</li>
 					<li>
-						<button className="filter-btn">Europe</button>
+						<button onClick={onFilter} className="filter-btn">
+							Europe
+						</button>
 					</li>
 					<li>
-						<button className="filter-btn">Oceania</button>
+						<button onClick={onFilter} className="filter-btn">
+							Oceania
+						</button>
 					</li>
 				</ul>
 			</div>

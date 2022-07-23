@@ -2,7 +2,7 @@ import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import CountryPage from "./routes/CountryPage";
+import DetailsPage from "./routes/DetailsPage";
 
 export interface State {
 	name: string;
@@ -42,24 +42,33 @@ function App() {
 		}
 		const res = await fetch(url);
 		const json = await res.json();
+		console.log(json);
 
 		for (let js of json) {
 			interface LooseObject {
 				[key: string]: string;
 			}
-			// console.log(js);
-			const nativeName = Object.values<LooseObject>(js.name.nativeName)[0]
-				.common;
 
-			const langs = Object.values<string>(js.languages).join();
+			let nativeName: string;
+			if (js.name.nativeName) {
+				nativeName = Object.values<LooseObject>(js.name.nativeName)[0].common;
+			} else {
+				nativeName = "n/a";
+			}
+
+			let langs: string;
+			if (js.langs) {
+				langs = Object.values<string>(js.languages).join();
+			} else {
+				langs = "n/a";
+			}
 
 			let currencies: string;
 			if (js.currencies) currencies = Object.keys(js.currencies)[0];
-			else return "N/A";
+			else currencies = "n/a";
 
 			let tld: string;
-			if (js.tld) tld = js.tld[0];
-			else tld = "N/A";
+			tld = js.tld ? js.tld[0] : "n/a";
 
 			setData((prevData) => [
 				...prevData,
@@ -67,10 +76,10 @@ function App() {
 					name: js.name.common,
 					region: js.region,
 					population: js.population,
-					capital: js.capital,
+					capital: js.capital || "n/a",
 					flag: js.flags.svg,
 					nativeName: nativeName,
-					subregion: js.subregion,
+					subregion: js.subregion || "n/a",
 					topLevelDomain: tld,
 					currencies: currencies,
 					langs: langs,
@@ -103,6 +112,14 @@ function App() {
 		setData([]);
 	};
 
+	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const filter = e.currentTarget.textContent;
+		console.log(data);
+		const filteredData = data.filter((el) => el.region === filter);
+		navigate("/byregion");
+		setData(filteredData);
+	};
+
 	return (
 		<>
 			<Routes>
@@ -111,6 +128,7 @@ function App() {
 					element={
 						<>
 							<SearchSection
+								onFilter={handleFilter}
 								query={query}
 								onQuery={handleQuery}
 								onSubmit={handleSubmit}
@@ -124,6 +142,21 @@ function App() {
 					element={
 						<>
 							<SearchSection
+								onFilter={handleFilter}
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={data} />
+						</>
+					}
+				/>
+				<Route
+					path="/byregion"
+					element={
+						<>
+							<SearchSection
+								onFilter={handleFilter}
 								query={query}
 								onQuery={handleQuery}
 								onSubmit={handleSubmit}
@@ -134,7 +167,7 @@ function App() {
 				/>
 				<Route
 					path="/countrypage/:name"
-					element={<CountryPage onClick={handleClick} />}
+					element={<DetailsPage onClick={handleClick} />}
 				/>
 			</Routes>
 		</>

@@ -38,7 +38,7 @@ export const ThemeProvider = ({ children }: Props) => {
 
 	function handleTheme() {
 		setDarkMode((prevState) => {
-			const bool = !prevState;
+			const bool = !prevState; // hacky ?!
 			changeTheme(bool);
 			return bool;
 		});

@@ -5,9 +5,10 @@ type Props = {
 	query: string;
 	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	onSubmit: (e: React.FormEvent) => void;
+	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const SearchSection = ({ query, onQuery, onSubmit }: Props) => {
+const SearchSection = ({ query, onQuery, onSubmit, onFilter }: Props) => {
 	return (
 		<section
 			role="search"
@@ -15,7 +16,7 @@ const SearchSection = ({ query, onQuery, onSubmit }: Props) => {
 			"
 		>
 			<SearchBar query={query} onQuery={onQuery} onSubmit={onSubmit} />
-			<DropDownMenu />
+			<DropDownMenu onFilter={onFilter} />
 		</section>
 	);
 };
