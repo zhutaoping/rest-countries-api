@@ -21,8 +21,9 @@ export interface State {
 function App() {
 	const [query, setQuery] = useState("");
 	const [data, setData] = useState<State[]>([]);
-	const [list, setList] = useState<State[]>([]);
+	const [border, setBorder] = useState<State[]>([]);
 	const [filtered, setFiltered] = useState<State[]>([]);
+	const [queryList, setQueryList] = useState<State[]>([]);
 
 	const navigate = useNavigate();
 
@@ -31,8 +32,8 @@ function App() {
 	}, []);
 
 	let isAlpha3 = false;
-	let isList = false;
-	let isFilter = false;
+	let isBorder = false;
+	let isQueryList = false;
 
 	const handleGetData = async (query: string) => {
 		let url;
@@ -48,7 +49,7 @@ function App() {
 
 		const res = await fetch(url);
 		const json = await res.json();
-		// console.log(json);
+		console.log(json);
 
 		for (let js of json) {
 			interface LooseObject {
@@ -63,8 +64,12 @@ function App() {
 			}
 
 			let langs: string;
-			if (js.langs) {
-				langs = Object.values<string>(js.languages).join();
+			if (js.languages) {
+				let arr = [];
+				for (let key in js.languages) {
+					arr.push(js.languages[key]);
+				}
+				langs = arr.join(", ");
 			} else {
 				langs = "n/a";
 			}
@@ -76,8 +81,8 @@ function App() {
 			let tld: string;
 			tld = js.tld ? js.tld[0] : "n/a";
 
-			if (isList) {
-				setList((prevData) => [
+			if (isBorder) {
+				setBorder((prevData) => [
 					...prevData,
 					{
 						name: js.name.common,
@@ -93,7 +98,25 @@ function App() {
 						borders: js.borders,
 					},
 				]);
-				isList = false;
+				isBorder = false;
+			} else if (isQueryList) {
+				console.log("test");
+				setQueryList((prevData) => [
+					...prevData,
+					{
+						name: js.name.common,
+						region: js.region,
+						population: js.population,
+						capital: js.capital || "n/a",
+						flag: js.flags.svg,
+						nativeName: nativeName,
+						subregion: js.subregion || "n/a",
+						topLevelDomain: tld,
+						currencies: currencies,
+						langs: langs,
+						borders: js.borders,
+					},
+				]);
 			} else {
 				setData((prevData) => [
 					...prevData,
@@ -113,6 +136,7 @@ function App() {
 				]);
 			}
 		}
+		isQueryList = false;
 	};
 
 	const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,30 +145,31 @@ function App() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-
-		navigate("countrylist");
-
+		isQueryList = true;
+		// console.log(query);
 		handleGetData(query);
 		setQuery("");
-		setData([]);
+		console.log(queryList);
+		navigate("querylist", { state: queryList });
+		setQueryList([]);
 	};
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		isAlpha3 = true;
-		isList = true;
+		isBorder = true;
 		const query = e.currentTarget.value;
 		handleGetData(query);
-		navigate("countrylist", { state: list });
-		console.log(list);
-		setList([]);
+		navigate("border", { state: border });
+		console.log(border);
+		setBorder([]);
 	};
 
 	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const filter = e.currentTarget.textContent;
-		console.log(data);
+		// console.log(data);
 		const filteredData = data.filter((el) => el.region === filter);
 		setFiltered(filteredData);
-		console.log(filteredData);
+		// console.log(filteredData);
 		navigate("region", { state: filtered });
 		// setFiltered([]);
 	};
@@ -167,7 +192,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/countrylist"
+					path="/border"
 					element={
 						<>
 							<SearchSection
@@ -176,7 +201,21 @@ function App() {
 								onQuery={handleQuery}
 								onSubmit={handleSubmit}
 							/>
-							<CountryList data={list} />
+							<CountryList data={border} />
+						</>
+					}
+				/>
+				<Route
+					path="/querylist"
+					element={
+						<>
+							<SearchSection
+								onFilter={handleFilter}
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={queryList} />
 						</>
 					}
 				/>
@@ -195,7 +234,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/detailspage/:name"
+					path="/details/:name"
 					element={<DetailsPage onClick={handleClick} />}
 				/>
 			</Routes>
