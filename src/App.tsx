@@ -50,7 +50,6 @@ function App() {
 
 		const res = await fetch(url);
 		const json = await res.json();
-
 		// console.log(json);
 
 		for (let js of json) {
@@ -83,58 +82,27 @@ function App() {
 			let tld: string;
 			tld = js.tld ? js.tld[0] : "n/a";
 
+			const temp = {
+				name: js.name.common,
+				region: js.region,
+				population: js.population,
+				capital: js.capital || "n/a",
+				flag: js.flags.svg,
+				nativeName: nativeName,
+				subregion: js.subregion || "n/a",
+				topLevelDomain: tld,
+				currencies: currencies,
+				langs: langs,
+				borders: js.borders,
+			};
+
 			if (isBorder) {
-				setBorder((prevData) => [
-					...prevData,
-					{
-						name: js.name.common,
-						region: js.region,
-						population: js.population,
-						capital: js.capital || "n/a",
-						flag: js.flags.svg,
-						nativeName: nativeName,
-						subregion: js.subregion || "n/a",
-						topLevelDomain: tld,
-						currencies: currencies,
-						langs: langs,
-						borders: js.borders,
-					},
-				]);
+				setBorder((prevData) => [...prevData, temp]);
 				isBorder = false;
 			} else if (isQueryList) {
-				setQueryList((prevData) => [
-					...prevData,
-					{
-						name: js.name.common,
-						region: js.region,
-						population: js.population,
-						capital: js.capital || "n/a",
-						flag: js.flags.svg,
-						nativeName: nativeName,
-						subregion: js.subregion || "n/a",
-						topLevelDomain: tld,
-						currencies: currencies,
-						langs: langs,
-						borders: js.borders,
-					},
-				]);
+				setQueryList((prevData) => [...prevData, temp]);
 			} else {
-				setData((prevData) => [
-					...prevData,
-					{
-						name: js.name.common,
-						region: js.region,
-						population: js.population,
-						capital: js.capital || "n/a",
-						flag: js.flags.svg,
-						nativeName: nativeName,
-						subregion: js.subregion || "n/a",
-						topLevelDomain: tld,
-						currencies: currencies,
-						langs: langs,
-						borders: js.borders,
-					},
-				]);
+				setData((prevData) => [...prevData, temp]);
 			}
 		}
 		isQueryList = false;
@@ -173,17 +141,11 @@ function App() {
 		filteredData = (bool ? queryList : data).filter(
 			(el) => el.region === filter
 		);
-		// if (location.pathname.includes("querylist")) {
-		// 	filteredData = queryList.filter((el) => el.region === filter);
-		// } else {
-		// 	filteredData = data.filter((el) => el.region === filter);
-		// }
+
 		setFiltered(filteredData);
 		navigate(bool ? `/querylist/${filter}` : `/region/${filter}`, {
 			state: filtered,
 		});
-		// console.log(params.filter);
-		// setFiltered([]);
 	};
 
 	return (
