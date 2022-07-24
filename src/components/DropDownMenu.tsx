@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
 	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -57,7 +56,7 @@ const DropDownMenu = ({ onFilter }: Props) => {
 					</li>
 					<li>
 						<button onClick={onFilter} className="filter-btn">
-							America
+							Americas
 						</button>
 					</li>
 					<li>

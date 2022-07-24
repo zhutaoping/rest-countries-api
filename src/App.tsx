@@ -1,7 +1,7 @@
 import SearchSection from "./components/SearchSection";
 import CountryList from "./components/CountryList";
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import DetailsPage from "./routes/DetailsPage";
 
 export interface State {
@@ -26,6 +26,7 @@ function App() {
 	const [queryList, setQueryList] = useState<State[]>([]);
 
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		handleGetData("");
@@ -50,7 +51,7 @@ function App() {
 		const res = await fetch(url);
 		const json = await res.json();
 
-		console.log(json);
+		// console.log(json);
 
 		for (let js of json) {
 			interface LooseObject {
@@ -163,11 +164,25 @@ function App() {
 
 	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const filter = e.currentTarget.textContent;
-		// console.log(data);
-		const filteredData = data.filter((el) => el.region === filter);
+		let filteredData: State[] = [];
+		console.log(location.pathname);
+
+		const bool = location.pathname.includes("querylist");
+		console.log(bool);
+
+		filteredData = (bool ? queryList : data).filter(
+			(el) => el.region === filter
+		);
+		// if (location.pathname.includes("querylist")) {
+		// 	filteredData = queryList.filter((el) => el.region === filter);
+		// } else {
+		// 	filteredData = data.filter((el) => el.region === filter);
+		// }
 		setFiltered(filteredData);
-		// console.log(filteredData);
-		navigate("region", { state: filtered });
+		navigate(bool ? `/querylist/${filter}` : `/region/${filter}`, {
+			state: filtered,
+		});
+		// console.log(params.filter);
 		// setFiltered([]);
 	};
 
@@ -217,7 +232,21 @@ function App() {
 					}
 				/>
 				<Route
-					path="/region"
+					path="/region/:filter"
+					element={
+						<>
+							<SearchSection
+								onFilter={handleFilter}
+								query={query}
+								onQuery={handleQuery}
+								onSubmit={handleSubmit}
+							/>
+							<CountryList data={filtered} />
+						</>
+					}
+				/>
+				<Route
+					path="/querylist/:filter"
 					element={
 						<>
 							<SearchSection

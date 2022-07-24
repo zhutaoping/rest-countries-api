@@ -15,7 +15,6 @@ const DetailsPage = ({ onClick }: Props) => {
 
 	const bordersArr = state.borders;
 	let newArr: string[] = [];
-	console.log(bordersArr);
 
 	if (bordersArr) {
 		newArr = bordersArr.map((el) => {
@@ -23,7 +22,6 @@ const DetailsPage = ({ onClick }: Props) => {
 			return countryListAlpha3[key as keyof typeof countryListAlpha3];
 		});
 	}
-	console.log(newArr);
 
 	const handleBackBtn = () => {
 		navigate(-1);
