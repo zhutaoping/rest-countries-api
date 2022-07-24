@@ -8,8 +8,6 @@ type Props = {
 const DropDownMenu = ({ onFilter }: Props) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	const navigate = useNavigate();
-
 	const dropdownMenu = () => {
 		if (dropdownRef.current !== null) {
 			dropdownRef.current.classList.toggle("hidden");

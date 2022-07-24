@@ -29,7 +29,6 @@ const CountryItem = ({
 						<p className="dark:text-pureWhite mb-1">
 							<span className="font-semibold">Capital</span>: {capital}
 						</p>
-						<p>{index}</p>
 					</div>
 				</div>
 			</Link>

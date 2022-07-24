@@ -232,7 +232,7 @@ export const countryListAlpha3 = {
 	UGA: "Uganda",
 	UKR: "Ukraine",
 	ARE: "United Arab Emirates (the)",
-	GBR: "United Kingdom of Great Britain and Northern Ireland (the)",
+	GBR: "United Kingdom of Great Britain and Northern Ireland",
 	UMI: "United States Minor Outlying Islands",
 	USA: "United States of America",
 	URY: "Uruguay",
@@ -248,4 +248,5 @@ export const countryListAlpha3 = {
 	ZMB: "Zambia",
 	ZWE: "Zimbabwe",
 	ALA: "Åland Islands",
+	UNK: "Kosovo", // cca3
 };

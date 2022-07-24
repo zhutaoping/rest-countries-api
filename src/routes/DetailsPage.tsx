@@ -15,6 +15,7 @@ const DetailsPage = ({ onClick }: Props) => {
 
 	const bordersArr = state.borders;
 	let newArr: string[] = [];
+	console.log(bordersArr);
 
 	if (bordersArr) {
 		newArr = bordersArr.map((el) => {
@@ -22,6 +23,7 @@ const DetailsPage = ({ onClick }: Props) => {
 			return countryListAlpha3[key as keyof typeof countryListAlpha3];
 		});
 	}
+	console.log(newArr);
 
 	const handleBackBtn = () => {
 		navigate(-1);
@@ -40,7 +42,7 @@ const DetailsPage = ({ onClick }: Props) => {
 					className="shadow-lg max-w-sm md:max-w-md xl:max-w-xl 2xl:max-w-2xl"
 				/>
 
-				<div className="wrapper mt-10 md:mt-0 lg:grid lg:grid-cols-2 lg:gap-x-10">
+				<div className="wrapper my-10 md:mt-0 lg:grid lg:grid-cols-2 lg:gap-x-10">
 					<section className="leading-9">
 						<h1 className="text-2xl font-bold mb-5">{state.name}</h1>
 						<p>
@@ -49,7 +51,7 @@ const DetailsPage = ({ onClick }: Props) => {
 						</p>
 						<p>
 							<span className="font-semibold">Population: </span>
-							{state.population}
+							{state.population.toLocaleString()}
 						</p>
 						<p>
 							<span className="font-semibold">Region: </span> {state.region}

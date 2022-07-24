@@ -49,6 +49,7 @@ function App() {
 
 		const res = await fetch(url);
 		const json = await res.json();
+
 		console.log(json);
 
 		for (let js of json) {
@@ -100,7 +101,6 @@ function App() {
 				]);
 				isBorder = false;
 			} else if (isQueryList) {
-				console.log("test");
 				setQueryList((prevData) => [
 					...prevData,
 					{
@@ -146,10 +146,8 @@ function App() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		isQueryList = true;
-		// console.log(query);
 		handleGetData(query);
 		setQuery("");
-		console.log(queryList);
 		navigate("querylist", { state: queryList });
 		setQueryList([]);
 	};
@@ -160,7 +158,6 @@ function App() {
 		const query = e.currentTarget.value;
 		handleGetData(query);
 		navigate("border", { state: border });
-		console.log(border);
 		setBorder([]);
 	};
 
