@@ -37,7 +37,7 @@ const DetailsPage = ({ onClick }: Props) => {
 				<img
 					src={state.flag}
 					alt={state.name}
-					className="shadow-lg max-w-sm md:max-w-md xl:max-w-xl 2xl:max-w-2xl"
+					className="shadow-xl max-w-sm md:max-w-md xl:max-w-xl 2xl:max-w-2xl"
 				/>
 
 				<div className="wrapper my-10 md:mt-0 lg:grid lg:grid-cols-2 lg:gap-x-10">
