@@ -18,7 +18,7 @@ const DropDownMenu = ({ onFilter }: Props) => {
 			<button
 				onClick={dropdownMenu}
 				id="dropdownDefault"
-				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm hover:bg-gray-100"
+				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700  hover:bg-blue-50 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm "
 				type="button"
 			>
 				Filter by Region

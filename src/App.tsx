@@ -35,6 +35,7 @@ function App() {
 	let isAlpha3 = false;
 	let isBorder = false;
 	let isQueryList = false;
+	let isDetails = false;
 
 	const handleGetData = async (query: string) => {
 		let url;
@@ -141,79 +142,30 @@ function App() {
 			state: filtered,
 		});
 	};
+	isDetails = location.pathname.includes("details");
 
 	return (
 		<>
+			{isDetails || (
+				<SearchSection
+					onFilter={handleFilter}
+					query={query}
+					onQuery={handleQuery}
+					onSubmit={handleSubmit}
+				/>
+			)}
+
 			<Routes>
-				<Route
-					path="/"
-					element={
-						<>
-							<SearchSection
-								onFilter={handleFilter}
-								query={query}
-								onQuery={handleQuery}
-								onSubmit={handleSubmit}
-							/>
-							<CountryList data={data} />
-						</>
-					}
-				/>
-				<Route
-					path="/border"
-					element={
-						<>
-							<SearchSection
-								onFilter={handleFilter}
-								query={query}
-								onQuery={handleQuery}
-								onSubmit={handleSubmit}
-							/>
-							<CountryList data={border} />
-						</>
-					}
-				/>
-				<Route
-					path="/querylist"
-					element={
-						<>
-							<SearchSection
-								onFilter={handleFilter}
-								query={query}
-								onQuery={handleQuery}
-								onSubmit={handleSubmit}
-							/>
-							<CountryList data={queryList} />
-						</>
-					}
-				/>
+				<Route path="/" element={<CountryList data={data} />} />
+				<Route path="/border" element={<CountryList data={border} />} />
+				<Route path="/querylist" element={<CountryList data={queryList} />} />
 				<Route
 					path="/region/:filter"
-					element={
-						<>
-							<SearchSection
-								onFilter={handleFilter}
-								query={query}
-								onQuery={handleQuery}
-								onSubmit={handleSubmit}
-							/>
-							<CountryList data={filtered} />
-						</>
-					}
+					element={<CountryList data={filtered} />}
 				/>
 				<Route
 					path="/querylist/:filter"
-					element={
-						<>
-							<SearchSection
-								onFilter={handleFilter}
-								query={query}
-								onQuery={handleQuery}
-								onSubmit={handleSubmit}
-							/>
-							<CountryList data={filtered} />
-						</>
-					}
+					element={<CountryList data={filtered} />}
 				/>
 				<Route
 					path="/details/:name"

@@ -36,7 +36,7 @@ const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
 					onChange={onQuery}
 					type="text"
 					id="simple-search"
-					className="border-0 dark:bg-elementsDark text-gray-900 text-sm md:text-lg rounded-md shadow-sm w-full max-w-[400px] pl-10 p-2.5 placeholder-gray-900 hover:bg-gray-100 focus:ring-gray-200 dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"
+					className="border-0 dark:bg-elementsDark text-gray-900 text-sm md:text-lg rounded-md shadow-sm w-full max-w-[400px] pl-10 p-2.5 placeholder-gray-900 hover:bg-blue-50 focus:ring-gray-200 dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"
 					placeholder="Search for a country..."
 					required
 				/>

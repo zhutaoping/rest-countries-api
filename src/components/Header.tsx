@@ -13,7 +13,7 @@ const Header = () => {
 	};
 
 	return (
-		<header className="header py-8 flex justify-around md:justify-between md:px-20 lg:px-40 items-center dark:bg-elementsDark text-textLight dark:text-white drop-shadow">
+		<header className="header py-8 flex justify-around md:justify-between md:px-20  items-center dark:bg-elementsDark text-textLight dark:text-white drop-shadow">
 			<h1
 				onClick={handleClick}
 				className="m-0 text-base md:text-2xl font-bold cursor-pointer"
