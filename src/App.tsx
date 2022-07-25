@@ -75,12 +75,9 @@ function App() {
 				langs = "n/a";
 			}
 
-			let currencies: string;
-			if (js.currencies) currencies = Object.keys(js.currencies)[0];
-			else currencies = "n/a";
+			const currencies = js.currencies ? Object.keys(js.currencies)[0] : "n/a";
 
-			let tld: string;
-			tld = js.tld ? js.tld[0] : "n/a";
+			const tld = js.tld ? js.tld[0] : "n/a";
 
 			const temp = {
 				name: js.name.common,
@@ -132,17 +129,14 @@ function App() {
 
 	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const filter = e.currentTarget.textContent;
-		let filteredData: State[] = [];
-		console.log(location.pathname);
-
 		const bool = location.pathname.includes("querylist");
-		console.log(bool);
 
+		let filteredData: State[] = [];
 		filteredData = (bool ? queryList : data).filter(
 			(el) => el.region === filter
 		);
-
 		setFiltered(filteredData);
+
 		navigate(bool ? `/querylist/${filter}` : `/region/${filter}`, {
 			state: filtered,
 		});
