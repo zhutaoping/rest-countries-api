@@ -43,7 +43,7 @@ const DropDownMenu = ({ onFilter }: Props) => {
 				id="dropdown"
 				ref={dropdownRef}
 				onClick={dropdownMenu}
-				className="hidden absolute top-[220px] md:top-[197px] z-10 w-[165.86px] md:w-[197px] bg-white rounded text-gray-900 dark:bg-gray-700"
+				className="hidden absolute top-[220px] z-10 w-[152.67px] md:w-[180.3px] md:top-[197px] bg-white rounded text-gray-900 dark:bg-gray-700"
 			>
 				<ul
 					className="py-1 text-sm md:text-lg text-gray-700 dark:text-gray-200"
