@@ -3,6 +3,7 @@ import CountryList from "./components/CountryList";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import DetailsPage from "./routes/DetailsPage";
+import Spinner from "./components/Spinner";
 
 export interface State {
 	name: string;
@@ -24,6 +25,8 @@ function App() {
 	const [border, setBorder] = useState<State[]>([]);
 	const [filtered, setFiltered] = useState<State[]>([]);
 	const [queryList, setQueryList] = useState<State[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -38,6 +41,7 @@ function App() {
 	let isDetails = false;
 
 	const handleGetData = async (query: string) => {
+		setIsLoading(true);
 		let url;
 
 		if (query.length === 0) {
@@ -49,61 +53,68 @@ function App() {
 			url = `https://restcountries.com/v3.1/name/${query}`;
 		}
 
-		const res = await fetch(url);
-		const json = await res.json();
-		// console.log(json);
+		try {
+			const res = await fetch(url);
+			const json = await res.json();
+			// console.log(json);
 
-		for (let js of json) {
-			interface LooseObject {
-				[key: string]: string;
-			}
-
-			let nativeName: string;
-			if (js.name.nativeName) {
-				nativeName = Object.values<LooseObject>(js.name.nativeName)[0].common;
-			} else {
-				nativeName = "n/a";
-			}
-
-			let langs: string;
-			if (js.languages) {
-				let arr = [];
-				for (let key in js.languages) {
-					arr.push(js.languages[key]);
+			for (let js of json) {
+				interface LooseObject {
+					[key: string]: string;
 				}
-				langs = arr.join(", ");
-			} else {
-				langs = "n/a";
+
+				let nativeName: string;
+				if (js.name.nativeName) {
+					nativeName = Object.values<LooseObject>(js.name.nativeName)[0].common;
+				} else {
+					nativeName = "n/a";
+				}
+
+				let langs: string;
+				if (js.languages) {
+					let arr = [];
+					for (let key in js.languages) {
+						arr.push(js.languages[key]);
+					}
+					langs = arr.join(", ");
+				} else {
+					langs = "n/a";
+				}
+
+				const currencies = js.currencies
+					? Object.keys(js.currencies)[0]
+					: "n/a";
+
+				const tld = js.tld ? js.tld[0] : "n/a";
+
+				const temp = {
+					name: js.name.common,
+					region: js.region,
+					population: js.population,
+					capital: js.capital || "n/a",
+					flag: js.flags.svg,
+					nativeName: nativeName,
+					subregion: js.subregion || "n/a",
+					topLevelDomain: tld,
+					currencies: currencies,
+					langs: langs,
+					borders: js.borders,
+				};
+
+				if (isBorder) {
+					setBorder((prevData) => [...prevData, temp]);
+					isBorder = false;
+				} else if (isQueryList) {
+					setQueryList((prevData) => [...prevData, temp]);
+				} else {
+					setData((prevData) => [...prevData, temp]);
+				}
 			}
-
-			const currencies = js.currencies ? Object.keys(js.currencies)[0] : "n/a";
-
-			const tld = js.tld ? js.tld[0] : "n/a";
-
-			const temp = {
-				name: js.name.common,
-				region: js.region,
-				population: js.population,
-				capital: js.capital || "n/a",
-				flag: js.flags.svg,
-				nativeName: nativeName,
-				subregion: js.subregion || "n/a",
-				topLevelDomain: tld,
-				currencies: currencies,
-				langs: langs,
-				borders: js.borders,
-			};
-
-			if (isBorder) {
-				setBorder((prevData) => [...prevData, temp]);
-				isBorder = false;
-			} else if (isQueryList) {
-				setQueryList((prevData) => [...prevData, temp]);
-			} else {
-				setData((prevData) => [...prevData, temp]);
-			}
+			setIsLoading(false);
+			isQueryList = false;
+		} catch (error) {
+			setError("error.message");
 		}
-		isQueryList = false;
 	};
 
 	const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,6 +165,7 @@ function App() {
 					onSubmit={handleSubmit}
 				/>
 			)}
+			{isLoading && <Spinner />}
 
 			<Routes>
 				<Route path="/" element={<CountryList data={data} />} />
