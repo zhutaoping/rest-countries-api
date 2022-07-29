@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import DetailsPage from "./routes/DetailsPage";
 import Spinner from "./components/Spinner";
+import useFetch from "./hooks/useFetch";
 
 export interface State {
 	name: string;
@@ -21,10 +22,12 @@ export interface State {
 
 function App() {
 	const [query, setQuery] = useState("");
-	const [data, setData] = useState<State[]>([]);
+	
+	const [allList, setAllList] = useState<State[]>([]);
 	const [border, setBorder] = useState<State[]>([]);
 	const [filtered, setFiltered] = useState<State[]>([]);
 	const [queryList, setQueryList] = useState<State[]>([]);
+	
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
@@ -54,9 +57,11 @@ function App() {
 		}
 
 		try {
-			const res = await fetch(url);
-			const json = await res.json();
+			// const res = await fetch(url);
+			// const json = await res.json();
 			// console.log(json);
+
+			const { data: json }: any = useFetch(url);
 
 			for (let js of json) {
 				interface LooseObject {
@@ -107,7 +112,7 @@ function App() {
 				} else if (isQueryList) {
 					setQueryList((prevData) => [...prevData, temp]);
 				} else {
-					setData((prevData) => [...prevData, temp]);
+					setAllList((prevData) => [...prevData, temp]);
 				}
 			}
 			setIsLoading(false);
@@ -144,7 +149,7 @@ function App() {
 		const bool = location.pathname.includes("querylist");
 
 		let filteredData: State[] = [];
-		filteredData = (bool ? queryList : data).filter(
+		filteredData = (bool ? queryList : allList).filter(
 			(el) => el.region === filter
 		);
 		setFiltered(filteredData);
@@ -168,7 +173,7 @@ function App() {
 			{isLoading && <Spinner />}
 
 			<Routes>
-				<Route path="/" element={<CountryList data={data} />} />
+				<Route path="/" element={<CountryList data={allList} />} />
 				<Route path="/border" element={<CountryList data={border} />} />
 				<Route path="/querylist" element={<CountryList data={queryList} />} />
 				<Route
