@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import DetailsPage from "./routes/DetailsPage";
 import Spinner from "./components/Spinner";
+import Error from "./components/Error";
 
 export interface State {
 	name: string;
@@ -55,8 +56,12 @@ function App() {
 
 		try {
 			const res = await fetch(url);
+
+			if (!res.ok) {
+				throw new TypeError(res.statusText);
+			}
+
 			const json = await res.json();
-			// console.log(json);
 
 			for (let js of json) {
 				interface LooseObject {
@@ -110,10 +115,16 @@ function App() {
 					setData((prevData) => [...prevData, temp]);
 				}
 			}
+			setError("");
 			setIsLoading(false);
 			isQueryList = false;
-		} catch (error) {
-			setError("error.message");
+		} catch (e) {
+			setIsLoading(false);
+			setError("無法取回資料");
+
+			if (e instanceof TypeError) {
+				console.log(e.message);
+			}
 		}
 	};
 
@@ -166,6 +177,7 @@ function App() {
 				/>
 			)}
 			{isLoading && <Spinner />}
+			{error && <Error error={error} />}
 
 			<Routes>
 				<Route path="/" element={<CountryList data={data} />} />

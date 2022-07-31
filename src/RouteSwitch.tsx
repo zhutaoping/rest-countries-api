@@ -7,7 +7,6 @@ const RouteSwitch = () => {
 	return (
 		<BrowserRouter>
 			<Header />
-
 			<Routes>
 				<Route path="/*" element={<App />}></Route>
 				<Route path="*" element={<NoMatch />} />
