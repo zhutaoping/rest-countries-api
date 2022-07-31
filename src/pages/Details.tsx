@@ -1,13 +1,14 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { BsArrowLeft } from "react-icons/bs";
 import { State } from "../hooks/useFetch";
 import { countryListAlpha3 } from "../data/listAlpha3";
 
-type Props = {
-	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-};
+// type Props = {
+// 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+// };
 
-const DetailsPage = ({ onClick }: Props) => {
+const Details = () => {
 	const location = useLocation();
 	const state = location.state as State;
 
@@ -85,7 +86,7 @@ const DetailsPage = ({ onClick }: Props) => {
 							<div className="flex flex-wrap gap-4">
 								{newArr.map((el, i) => (
 									<button
-										onClick={onClick}
+										// onClick={onClick}
 										key={i}
 										value={bordersArr[i]}
 										className="nav-btn m-0 mb-1"
@@ -102,4 +103,4 @@ const DetailsPage = ({ onClick }: Props) => {
 	);
 };
 
-export default DetailsPage;
+export default Details;

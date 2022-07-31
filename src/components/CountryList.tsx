@@ -1,5 +1,5 @@
 import CountryItem from "./CountryItem";
-import { State } from "../App";
+import { State } from "../hooks/useFetch";
 
 type Props = {
 	data: State[];
@@ -11,7 +11,7 @@ const CountryList = ({ data }: Props) => {
 			{data.map((da, i) => (
 				<CountryItem
 					key={i}
-					index={i}
+					id={i}
 					name={da.name}
 					region={da.region}
 					population={da.population}

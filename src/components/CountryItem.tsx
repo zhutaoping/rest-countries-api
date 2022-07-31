@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { State } from "../App";
+import { State } from "../hooks/useFetch";
 
-type Props = State & { data: object } & { index: number };
+type Props = State & { data: object } & { id: number };
 
 const CountryItem = ({
 	name,
@@ -10,11 +10,11 @@ const CountryItem = ({
 	capital,
 	flag,
 	data,
-	index,
+	id,
 }: Props) => {
 	return (
 		<div>
-			<Link to={`/details/${name}`} state={data} title="Details Page">
+			<Link to={`/details/${id}`} state={data} title="Details Page">
 				<div className="max-w-sm rounded overflow-hidden shadow-lg ">
 					<img src={flag} alt="country flag" />
 					<div className=" p-7 dark:text-pureWhite dark:bg-elementsDark text-gray-700">
