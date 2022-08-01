@@ -1,12 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
-
 import { BsArrowLeft } from "react-icons/bs";
 import { State } from "../hooks/useFetch";
 import { countryListAlpha3 } from "../data/listAlpha3";
-
-// type Props = {
-// 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-// };
 
 const Details = () => {
 	const location = useLocation();
@@ -26,6 +21,11 @@ const Details = () => {
 
 	const handleBackBtn = () => {
 		navigate(-1);
+	};
+
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const query = e.currentTarget.value;
+		navigate("/countries", { state: query });
 	};
 
 	return (
@@ -86,9 +86,9 @@ const Details = () => {
 							<div className="flex flex-wrap gap-4">
 								{newArr.map((el, i) => (
 									<button
-										// onClick={onClick}
+										onClick={(e) => handleClick(e)}
 										key={i}
-										value={bordersArr[i]}
+										value={el}
 										className="nav-btn m-0 mb-1"
 									>
 										{el}

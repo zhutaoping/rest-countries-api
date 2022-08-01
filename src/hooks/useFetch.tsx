@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export interface State {
 	name: string;
@@ -14,12 +14,7 @@ export interface State {
 	borders: string[];
 }
 
-export const useFetch = (
-	url: string = "https://restcountries.com/v3.1/all"
-) => {
-	console.log(url);
-
-	const [query, setQuery] = useState("");
+export const useFetch = (url: string) => {
 	const [data, setData] = useState<State[]>([]);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState("");
@@ -90,7 +85,6 @@ export const useFetch = (
 				setError("無法取得資料");
 			}
 		};
-
 		fetchData();
 	}, []);
 

@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// type Props = {
-// 	query: string;
-// 	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
-// 	onSubmit: (e: React.FormEvent) => void;
-// };
-
 const SearchBar = () => {
 	const [query, setQuery] = useState("");
 
@@ -18,7 +12,6 @@ const SearchBar = () => {
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		console.log(query);
 		navigate("/countries", { state: query });
 		setQuery("");
 	};

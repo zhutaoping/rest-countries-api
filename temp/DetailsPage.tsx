@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
-import { State } from "../hooks/useFetch";
-import { countryListAlpha3 } from "../data/listAlpha3";
+import { State } from "../src/hooks/useFetch";
+import { countryListAlpha3 } from "../src/data/listAlpha3";
 
 type Props = {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
