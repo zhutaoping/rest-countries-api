@@ -1,10 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useFilter } from "../context/FilterContext";
 
-// type Props = {
-// 	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
-// };
-
 const DropDownMenu = () => {
 	const [menuText, setMenuText] = useState("");
 	const dropdownRef = useRef<HTMLDivElement>(null);

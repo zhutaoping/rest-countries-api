@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
 import CountryList from "../components/CountryList";
 import Spinner from "../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +6,7 @@ import { getCountries } from "../helpers/countriesApi";
 import { dataRefine } from "../helpers/dataRefining";
 import { useState, useEffect } from "react";
 import { State } from "../helpers/dataRefining";
+import { useFilter } from "../context/FilterContext";
 
 const Countries = () => {
 	// const { data, isLoading, error } = useFetch(
@@ -15,6 +15,9 @@ const Countries = () => {
 	const { state } = useLocation();
 
 	const [data, setData] = useState<State[]>([]);
+	const [filteredData, setFilteredData] = useState<State[]>([]);
+
+	const { filter } = useFilter();
 
 	const {
 		data: raw,
@@ -31,6 +34,16 @@ const Countries = () => {
 		}
 	}, [raw]);
 
+	useEffect(() => {
+		console.log(filter);
+		if (filter && data) {
+			const filtered = data.filter((da) => da.region === filter);
+			setFilteredData(filtered);
+		}
+	}, [filter, data]);
+
+	console.log(filteredData);
+
 	return (
 		<div>
 			{isLoading && <Spinner />}
@@ -39,7 +52,10 @@ const Countries = () => {
 					"Something went wrong!"
 				</h1>
 			)}
-			<CountryList data={data} />
+			{filter && <CountryList data={filteredData} />}
+			{filteredData.length === 0 && <CountryList data={filteredData} />}
+			{filter === "All" && <CountryList data={data} />}
+			{filter === "" && <CountryList data={data} />}
 		</div>
 	);
 };

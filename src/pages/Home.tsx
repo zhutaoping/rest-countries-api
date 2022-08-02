@@ -1,4 +1,3 @@
-import { useFetch } from "../hooks/useFetch";
 import CountryList from "../components/CountryList";
 import Spinner from "../components/Spinner";
 import { useQuery } from "@tanstack/react-query";
@@ -7,7 +6,6 @@ import { dataRefine } from "../helpers/dataRefining";
 import { useState, useEffect } from "react";
 import { State } from "../helpers/dataRefining";
 import { useFilter } from "../context/FilterContext";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 	const [data, setData] = useState<State[]>([]);
