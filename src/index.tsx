@@ -3,6 +3,9 @@ import "./index.scss";
 import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
@@ -10,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
 	<ThemeProvider>
 		<BrowserRouter>
-			<App />
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
 		</BrowserRouter>
 	</ThemeProvider>
 );

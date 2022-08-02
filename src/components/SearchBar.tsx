@@ -6,10 +6,6 @@ const SearchBar = () => {
 
 	const navigate = useNavigate();
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(e.target.value);
-	};
-
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		navigate("/countries", { state: query });
@@ -44,7 +40,7 @@ const SearchBar = () => {
 				</div>
 				<input
 					value={query}
-					onChange={(e) => handleChange(e)}
+					onChange={(e) => setQuery(e.target.value)}
 					type="text"
 					id="simple-search"
 					className="border-0 dark:bg-elementsDark text-gray-900 text-sm md:text-lg rounded-md shadow-sm w-full max-w-[400px] pl-10 p-2.5 placeholder-gray-900 hover:bg-blue-50 focus:ring-gray-200 dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"

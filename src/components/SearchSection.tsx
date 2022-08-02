@@ -5,8 +5,10 @@ import SearchBar from "./SearchBar";
 // 	query: string;
 // 	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
 // 	onSubmit: (e: React.FormEvent) => void;
-// 	// onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
 // };
+type Props = {
+	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
+};
 
 const SearchSection = () => {
 	return (
@@ -16,7 +18,7 @@ const SearchSection = () => {
 			"
 		>
 			<SearchBar />
-			{/* <DropDownMenu /> */}
+			<DropDownMenu />
 		</section>
 	);
 };

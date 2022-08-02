@@ -1,16 +1,29 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useFilter } from "../context/FilterContext";
 
-type Props = {
-	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
-};
+// type Props = {
+// 	onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
+// };
 
-const DropDownMenu = ({ onFilter }: Props) => {
+const DropDownMenu = () => {
+	const [menuText, setMenuText] = useState("");
 	const dropdownRef = useRef<HTMLDivElement>(null);
+
+	const { filter, setFilter } = useFilter();
 
 	const dropdownMenu = () => {
 		if (dropdownRef.current !== null) {
 			dropdownRef.current.classList.toggle("hidden");
 		}
+	};
+
+	useEffect(() => {
+		if (filter) setMenuText(filter);
+	}, [filter]);
+
+	const handleFilterChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const filter = e.currentTarget.innerText;
+		setFilter!(filter);
 	};
 
 	return (
@@ -21,7 +34,7 @@ const DropDownMenu = ({ onFilter }: Props) => {
 				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700  hover:bg-blue-50 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm "
 				type="button"
 			>
-				Filter by Region
+				{menuText ? menuText : "Filter by Region"}
 				<svg
 					className="ml-2 w-4 h-4"
 					aria-hidden="true"
@@ -50,27 +63,32 @@ const DropDownMenu = ({ onFilter }: Props) => {
 					aria-labelledby="dropdownDefault"
 				>
 					<li>
-						<button onClick={onFilter} className="filter-btn">
+						<button onClick={handleFilterChange} className="filter-btn">
+							All
+						</button>
+					</li>
+					<li>
+						<button onClick={handleFilterChange} className="filter-btn">
 							Africa
 						</button>
 					</li>
 					<li>
-						<button onClick={onFilter} className="filter-btn">
+						<button onClick={handleFilterChange} className="filter-btn">
 							Americas
 						</button>
 					</li>
 					<li>
-						<button onClick={onFilter} className="filter-btn">
+						<button onClick={handleFilterChange} className="filter-btn">
 							Asia
 						</button>
 					</li>
 					<li>
-						<button onClick={onFilter} className="filter-btn">
+						<button onClick={handleFilterChange} className="filter-btn">
 							Europe
 						</button>
 					</li>
 					<li>
-						<button onClick={onFilter} className="filter-btn">
+						<button onClick={handleFilterChange} className="filter-btn">
 							Oceania
 						</button>
 					</li>

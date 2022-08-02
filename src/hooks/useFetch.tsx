@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export interface State {
 	name: string;
@@ -16,20 +16,24 @@ export interface State {
 
 export const useFetch = (url: string) => {
 	const [data, setData] = useState<State[]>([]);
-	const [isPending, setIsPending] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 
 	useEffect(() => {
+		if (!url) return;
+
 		const fetchData = async () => {
-			setIsPending(true);
-			setData([]);
+			setIsLoading(true);
+			// setData([]);
 
 			try {
-				const res = await fetch(url);
-				if (!res.ok) {
-					throw new Error(res.statusText);
+				const response = await fetch(url);
+
+				if (!response.ok) {
+					throw new Error(response.statusText);
 				}
-				const data = await res.json();
+
+				const data = await response.json();
 
 				for (let da of data) {
 					interface LooseObject {
@@ -74,19 +78,18 @@ export const useFetch = (url: string) => {
 						langs: langs,
 						borders: da.borders,
 					};
-
 					setData((prevData) => [...prevData, temp]);
 				}
 
-				setIsPending(false);
+				setIsLoading(false);
 				setError("");
 			} catch (err) {
-				setIsPending(false);
+				setIsLoading(false);
 				setError("無法取得資料");
 			}
 		};
 		fetchData();
-	}, []);
+	}, [url]);
 
-	return { data, isPending, error };
+	return { data, isLoading, error };
 };

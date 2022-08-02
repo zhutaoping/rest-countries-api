@@ -23,7 +23,7 @@ const Details = () => {
 		navigate(-1);
 	};
 
-	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleBorders = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const query = e.currentTarget.value;
 		navigate("/countries", { state: query });
 	};
@@ -34,6 +34,7 @@ const Details = () => {
 				<BsArrowLeft className="block text-xl" />
 				Back
 			</button>
+
 			<main className="text-black dark:text-pureWhite mt-14 flex flex-col mx-auto w-[85vw] md:flex-row md:items-start md:gap-20 lg:grid lg:grid-cols-2 lg:gap-32">
 				<img
 					src={state.flag}
@@ -86,7 +87,7 @@ const Details = () => {
 							<div className="flex flex-wrap gap-4">
 								{newArr.map((el, i) => (
 									<button
-										onClick={(e) => handleClick(e)}
+										onClick={(e) => handleBorders(e)}
 										key={i}
 										value={el}
 										className="nav-btn m-0 mb-1"

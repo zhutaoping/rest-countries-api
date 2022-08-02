@@ -6,6 +6,7 @@ type Props = {
 };
 
 const CountryList = ({ data }: Props) => {
+	// console.log(data);
 	return (
 		<main className="flex flex-wrap justify-center gap-10 mx-7">
 			{data.map((da, i) => (

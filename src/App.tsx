@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Details from "./pages/Details";
 import Countries from "./pages/Countries";
 import NoMatch from "./pages/NoMatch";
+import { FilterProvider } from "./context/FilterContext";
 
 function App() {
 	const location = useLocation();
@@ -13,7 +14,7 @@ function App() {
 	isDetails = location.pathname.includes("details");
 
 	return (
-		<>
+		<FilterProvider>
 			<Header />
 			{isDetails || <SearchSection />}
 
@@ -23,7 +24,7 @@ function App() {
 				<Route path="/details/:id" element={<Details />} />
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
-		</>
+		</FilterProvider>
 	);
 }
 
