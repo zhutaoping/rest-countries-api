@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
-import { State } from "../src/hooks/useFetch";
+import { State } from "./useFetch";
 import { countryListAlpha3 } from "../src/data/listAlpha3";
 
 type Props = {

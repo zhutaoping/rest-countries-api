@@ -1,5 +1,5 @@
 import CountryItem from "./CountryItem";
-import { State } from "../hooks/useFetch";
+import { State } from "../../temp/useFetch";
 
 type Props = {
 	data: State[];

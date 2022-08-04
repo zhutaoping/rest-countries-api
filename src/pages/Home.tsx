@@ -12,7 +12,6 @@ const Home = () => {
 	const [filteredData, setFilteredData] = useState<State[]>([]);
 
 	const { filter } = useFilter();
-	console.log(filteredData);
 
 	const {
 		data: raw,
@@ -30,7 +29,6 @@ const Home = () => {
 	}, [raw]);
 
 	useEffect(() => {
-		console.log(filter);
 		if (filter && data) {
 			const filtered = data.filter((da) => da.region === filter);
 			setFilteredData(filtered);
@@ -41,10 +39,8 @@ const Home = () => {
 		<>
 			{isLoading && <Spinner />}
 			{isError && (
-				<div className="text-white font-bold bg-teal-500 dark:bg-purple-500">
-					<h1 className="text-3xl p-4 dark:text-white text-center tracking-wider">
-						"Something went wrong!!"
-					</h1>
+				<div className="">
+					<h1 className="error">"查無結果"</h1>
 				</div>
 			)}
 			{filter && <CountryList data={filteredData} />}

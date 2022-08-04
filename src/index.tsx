@@ -2,8 +2,10 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import Header from "./components/Header";
+import Details from "./pages/Details";
 
 const queryClient = new QueryClient();
 
@@ -12,11 +14,15 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 	<ThemeProvider>
-		<BrowserRouter>
-			<QueryClientProvider client={queryClient}>
-				<App />
-			</QueryClientProvider>
-		</BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Header />
+				<Routes>
+					<Route path="/*" element={<App />} />
+					<Route path="/details/:id" element={<Details />} />
+				</Routes>
+			</BrowserRouter>
+		</QueryClientProvider>
 	</ThemeProvider>
 );
 

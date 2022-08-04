@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
-import { State } from "../hooks/useFetch";
+import { State } from "../../temp/useFetch";
 import { countryListAlpha3 } from "../data/listAlpha3";
 
 const Details = () => {
@@ -25,7 +25,7 @@ const Details = () => {
 
 	const handleBorders = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const query = e.currentTarget.value;
-		navigate("/countries", { state: query });
+		navigate("/border", { state: query });
 	};
 
 	return (
@@ -35,7 +35,7 @@ const Details = () => {
 				Back
 			</button>
 
-			<main className="text-black dark:text-pureWhite mt-14 flex flex-col mx-auto w-[85vw] md:flex-row md:items-start md:gap-20 lg:grid lg:grid-cols-2 lg:gap-32">
+			<main className="text-black dark:text-white mt-14 flex flex-col mx-auto w-[85vw] md:flex-row md:items-start md:gap-20 lg:grid lg:grid-cols-2 lg:gap-32">
 				<img
 					src={state.flag}
 					alt={state.name}
@@ -89,7 +89,7 @@ const Details = () => {
 									<button
 										onClick={(e) => handleBorders(e)}
 										key={i}
-										value={el}
+										value={bordersArr[i]}
 										className="nav-btn m-0 mb-1"
 									>
 										{el}

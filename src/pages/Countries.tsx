@@ -9,9 +9,6 @@ import { State } from "../helpers/dataRefining";
 import { useFilter } from "../context/FilterContext";
 
 const Countries = () => {
-	// const { data, isLoading, error } = useFetch(
-	// 	`https://restcountries.com/v3.1/name/${state}`
-	// );
 	const { state } = useLocation();
 
 	const [data, setData] = useState<State[]>([]);
@@ -23,8 +20,10 @@ const Countries = () => {
 		data: raw,
 		isLoading,
 		isError,
-	} = useQuery(["query", state], () =>
-		getCountries(`https://restcountries.com/v3.1/name/${state}`)
+	} = useQuery(
+		["query", state],
+		() => getCountries(`https://restcountries.com/v3.1/name/${state}`),
+		{ retry: false }
 	);
 
 	useEffect(() => {
@@ -35,23 +34,16 @@ const Countries = () => {
 	}, [raw]);
 
 	useEffect(() => {
-		console.log(filter);
 		if (filter && data) {
 			const filtered = data.filter((da) => da.region === filter);
 			setFilteredData(filtered);
 		}
 	}, [filter, data]);
 
-	console.log(filteredData);
-
 	return (
 		<div>
 			{isLoading && <Spinner />}
-			{isError && (
-				<h1 className="text-2xl text-center dark:text-white">
-					"Something went wrong!"
-				</h1>
-			)}
+			{isError && <h1 className="error">{"查無結果"}</h1>}
 			{filter && <CountryList data={filteredData} />}
 			{filteredData.length === 0 && <CountryList data={filteredData} />}
 			{filter === "All" && <CountryList data={data} />}

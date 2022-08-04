@@ -6,7 +6,6 @@
 
 @layer base {
 	:root {
-		--pureWhite: hsl(0, 0%, 100%);
 		--elements-darkMode: hsl(209, 23%, 22%);
 		--bg-darkMode: hsl(207, 26%, 17%);
 		--text-lightMode: hsl(200, 15%, 8%);
@@ -24,8 +23,11 @@
 	}
 
 	.nav-btn {
-		@apply text-black	 ml-6 my-10 px-6 py-1 flex items-center gap-2 shadow-lg hover:bg-gray-100  active:translate-y-1 active:shadow-md dark:text-pureWhite  dark:hover:bg-gray-700 
-				dark:bg-elementsDark;
+		@apply text-black	 ml-6 my-10 px-6 py-1 flex items-center gap-2 shadow-lg hover:bg-gray-100  active:translate-y-1 active:shadow-md dark:text-white  dark:hover:bg-gray-700 dark:bg-elementsDark;
+	}
+
+	.error {
+		@apply text-base md:text-2xl bg-white h-32 flex justify-center items-center  text-center dark:text-white dark:bg-elementsDark tracking-wider;
 	}
 }
 

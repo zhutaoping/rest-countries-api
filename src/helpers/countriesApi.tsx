@@ -4,7 +4,7 @@ export const getCountries = async (url: string) => {
 	const response = await fetch(url);
 
 	if (!response.ok) {
-		throw new Error("查無此頁");
+		throw new Error("Not OK!");
 	}
 
 	const data = await response.json();

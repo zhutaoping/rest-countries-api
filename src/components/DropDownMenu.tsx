@@ -27,12 +27,12 @@ const DropDownMenu = () => {
 			<button
 				onClick={dropdownMenu}
 				id="dropdownDefault"
-				className=" mb-7 md:my-0 bg-white dark:text-pureWhite dark:bg-elementsDark dark:hover:bg-gray-700  hover:bg-blue-50 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm "
+				className="w-[152.67px] md:w-[180.3px] md:top-[197px]  mb-7 md:my-0 bg-white dark:text-white dark:bg-elementsDark dark:hover:bg-gray-700  hover:bg-blue-50 focus:outline-none rounded-md text-sm md:text-lg px-4 py-2.5 text-center inline-flex items-center shadow-sm "
 				type="button"
 			>
 				{menuText ? menuText : "Filter by Region"}
 				<svg
-					className="ml-2 w-4 h-4"
+					className="w-4 h-4 ml-auto"
 					aria-hidden="true"
 					fill="none"
 					stroke="currentColor"
@@ -58,11 +58,13 @@ const DropDownMenu = () => {
 					className="py-1 text-sm md:text-lg text-gray-700 dark:text-gray-200"
 					aria-labelledby="dropdownDefault"
 				>
-					<li>
-						<button onClick={handleFilterChange} className="filter-btn">
-							All
-						</button>
-					</li>
+					{filter && (
+						<li>
+							<button onClick={handleFilterChange} className="filter-btn">
+								All
+							</button>
+						</li>
+					)}
 					<li>
 						<button onClick={handleFilterChange} className="filter-btn">
 							Africa

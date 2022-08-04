@@ -17,7 +17,6 @@ let dataRefined: State[] = [];
 export const dataRefine = (data: any) => {
 	dataRefined = [];
 
-	// console.log(data);
 	for (let da of data) {
 		interface LooseObject {
 			[key: string]: string;

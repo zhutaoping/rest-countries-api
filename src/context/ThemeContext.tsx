@@ -22,6 +22,7 @@ const ThemeContext = createContext<Context>({});
 export function useTheme() {
 	return useContext(ThemeContext);
 }
+
 export const ThemeProvider = ({ children }: Props) => {
 	const [darkMode, setDarkMode] = useState(false);
 
@@ -36,12 +37,12 @@ export const ThemeProvider = ({ children }: Props) => {
 		}
 	}, []);
 
+	useEffect(() => {
+		changeTheme(darkMode);
+	}, [darkMode]);
+
 	function handleTheme() {
-		setDarkMode((prevState) => {
-			const bool = !prevState; // hacky ?!
-			changeTheme(bool);
-			return bool;
-		});
+		setDarkMode((prevState) => !prevState);
 	}
 
 	function changeTheme(bool: boolean) {
