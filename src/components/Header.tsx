@@ -1,4 +1,4 @@
-import { FaRegMoon, FaSun } from "react-icons/fa"; // light mode
+import { FaRegMoon, FaSun } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 

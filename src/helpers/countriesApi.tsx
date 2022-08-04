@@ -4,7 +4,7 @@ export const getCountries = async (url: string) => {
 	const response = await fetch(url);
 
 	if (!response.ok) {
-		throw new Error("Not OK!");
+		throw new Error("Respond not OK!");
 	}
 
 	const data = await response.json();
