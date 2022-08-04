@@ -7,11 +7,6 @@ import { FilterProvider } from "./context/FilterContext";
 import Border from "./pages/Border";
 
 function App() {
-	// const location = useLocation();
-
-	// let isDetails = false;
-	// isDetails = location.pathname.includes("details");
-
 	return (
 		<FilterProvider>
 			<SearchSection />
