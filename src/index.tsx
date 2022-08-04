@@ -4,8 +4,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import Header from "./components/Header";
-import Details from "./pages/Details";
 
 const queryClient = new QueryClient();
 
@@ -16,11 +14,7 @@ root.render(
 	<ThemeProvider>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<Header />
-				<Routes>
-					<Route path="/*" element={<App />} />
-					<Route path="/details/:id" element={<Details />} />
-				</Routes>
+				<App />
 			</BrowserRouter>
 		</QueryClientProvider>
 	</ThemeProvider>
