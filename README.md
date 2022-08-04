@@ -20,7 +20,7 @@
 
 # 打造工具
 
-- HTML5/CSS/SCSS
+- HTML5/CSS
 - Tailwind
 - Typescript/JavaScript
 - React
