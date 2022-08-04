@@ -1,17 +1,18 @@
 import CountryItem from "./CountryItem";
-import { State } from "../App";
+import { State } from "../../temp/useFetch";
 
 type Props = {
 	data: State[];
 };
 
 const CountryList = ({ data }: Props) => {
+	// console.log(data);
 	return (
 		<main className="flex flex-wrap justify-center gap-10 mx-7">
 			{data.map((da, i) => (
 				<CountryItem
 					key={i}
-					index={i}
+					id={i}
 					name={da.name}
 					region={da.region}
 					population={da.population}

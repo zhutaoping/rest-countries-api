@@ -1,13 +1,20 @@
-type Props = {
-	query: string;
-	onQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	onSubmit: (e: React.FormEvent) => void;
-};
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
+const SearchBar = () => {
+	const [query, setQuery] = useState("");
+
+	const navigate = useNavigate();
+
+	const handleSubmit = (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		navigate("/countries", { state: query });
+		setQuery("");
+	};
+
 	return (
 		<form
-			onSubmit={onSubmit}
+			onSubmit={(e) => handleSubmit(e)}
 			action="submit"
 			autoComplete="off"
 			className="flex items-center py-4 mb-2 "
@@ -33,7 +40,7 @@ const SearchBar = ({ query, onQuery, onSubmit }: Props) => {
 				</div>
 				<input
 					value={query}
-					onChange={onQuery}
+					onChange={(e) => setQuery(e.target.value)}
 					type="text"
 					id="simple-search"
 					className="border-0 dark:bg-elementsDark text-gray-900 text-sm md:text-lg rounded-md shadow-sm w-full max-w-[400px] pl-10 p-2.5 placeholder-gray-900 hover:bg-blue-50 focus:ring-gray-200 dark:placeholder-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-500"

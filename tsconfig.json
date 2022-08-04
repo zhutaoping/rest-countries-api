@@ -16,5 +16,5 @@
 		"noEmit": true,
 		"jsx": "react-jsx"
 	},
-	"include": ["src"]
+	"include": ["src", "temp/DetailsPage.tsx", "temp/RouteSwitch.tsx", "temp/react-app-env.d.ts", "temp/useFetch.tsx"]
 }

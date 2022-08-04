@@ -1,13 +1,9 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
-import { State } from "../App";
+import { State } from "../../temp/useFetch";
 import { countryListAlpha3 } from "../data/listAlpha3";
 
-type Props = {
-	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-};
-
-const DetailsPage = ({ onClick }: Props) => {
+const Details = () => {
 	const location = useLocation();
 	const state = location.state as State;
 
@@ -27,13 +23,19 @@ const DetailsPage = ({ onClick }: Props) => {
 		navigate(-1);
 	};
 
+	const handleBorders = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const query = e.currentTarget.value;
+		navigate("/border", { state: query });
+	};
+
 	return (
 		<div className="text-white">
 			<button onClick={handleBackBtn} className="nav-btn ml-[7vw]">
 				<BsArrowLeft className="block text-xl" />
 				Back
 			</button>
-			<main className="text-black dark:text-pureWhite mt-14 flex flex-col mx-auto w-[85vw] md:flex-row md:items-start md:gap-20 lg:grid lg:grid-cols-2 lg:gap-32">
+
+			<main className="text-black dark:text-white mt-14 flex flex-col mx-auto w-[85vw] md:flex-row md:items-start md:gap-20 lg:grid lg:grid-cols-2 lg:gap-32">
 				<img
 					src={state.flag}
 					alt={state.name}
@@ -85,7 +87,7 @@ const DetailsPage = ({ onClick }: Props) => {
 							<div className="flex flex-wrap gap-4">
 								{newArr.map((el, i) => (
 									<button
-										onClick={onClick}
+										onClick={(e) => handleBorders(e)}
 										key={i}
 										value={bordersArr[i]}
 										className="nav-btn m-0 mb-1"
@@ -102,4 +104,4 @@ const DetailsPage = ({ onClick }: Props) => {
 	);
 };
 
-export default DetailsPage;
+export default Details;

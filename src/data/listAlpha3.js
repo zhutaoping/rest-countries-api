@@ -231,7 +231,7 @@ export const countryListAlpha3 = {
 	TUV: "Tuvalu",
 	UGA: "Uganda",
 	UKR: "Ukraine",
-	ARE: "United Arab Emirates (the)",
+	ARE: "United Arab Emirates",
 	GBR: "United Kingdom of Great Britain and Northern Ireland",
 	UMI: "United States Minor Outlying Islands",
 	USA: "United States of America",

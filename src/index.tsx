@@ -1,14 +1,28 @@
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { ThemeProvider } from "./context/ThemeContext";
-import RouteSwitch from "./RouteSwitch";
+import App from "./App";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import Header from "./components/Header";
+import Details from "./pages/Details";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 root.render(
 	<ThemeProvider>
-		<RouteSwitch />
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<Header />
+				<Routes>
+					<Route path="/*" element={<App />} />
+					<Route path="/details/:id" element={<Details />} />
+				</Routes>
+			</BrowserRouter>
+		</QueryClientProvider>
 	</ThemeProvider>
 );
 

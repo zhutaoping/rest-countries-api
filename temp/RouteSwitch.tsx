@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./App";
-import NoMatch from "./routes/NoMatch";
-import Header from "./components/Header";
+import App from "../src/App";
+import NoMatch from "../src/pages/NoMatch";
+import Header from "../src/components/Header";
 
 const RouteSwitch = () => {
 	return (
